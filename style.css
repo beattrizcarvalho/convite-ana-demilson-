@@ -1,0 +1,307 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:wght@400;500;600&display=swap');
+
+:root { --bege:#fff5e9; --dourado:#b88638; --marrom:#68412b; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { min-height:100vh; background:var(--bege); color:var(--marrom); font-family:'Cormorant Garamond',serif; }
+
+/* CAPA: cobre todo o convite até terminar a animação */
+.capa-envelope { position:fixed; inset:0; z-index:1000; background:var(--bege); display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; transition:opacity .8s ease; }
+.envelope { position:relative; width:min(350px,90vw); height:230px; flex:none; isolation:isolate; perspective:1000px; filter:drop-shadow(0 12px 20px #8b683b35); }
+.envelope-corpo { position:absolute; inset:0; z-index:0; overflow:hidden; border:1px solid #bd8b42; border-radius:5px; background:repeating-linear-gradient(45deg,#ffffff08 0px,#ffffff08 1px,transparent 1px,transparent 4px),linear-gradient(135deg,#fff3e3,#ead2ae); box-shadow:inset 0 0 15px #ffffff50; }
+.envelope-corpo::before,.envelope-corpo::after { content:""; position:absolute; inset:0; }
+.envelope-corpo::before { background:#f2ddbd; clip-path:polygon(0 0,52% 55%,0 100%); }
+.envelope-corpo::after { background:#ecd3af; clip-path:polygon(100% 0,48% 55%,100% 100%); }
+.envelope::after { content:""; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top,#f4e1c4,#e9d1ae); clip-path:polygon(0 100%,50% 48%,100% 100%); }
+.envelope-aba { position:absolute; top:0; left:0; width:100%; height:55%; z-index:4; overflow:hidden; background:linear-gradient(160deg,#fff8ed,#f0dfc3); clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top center; backface-visibility:hidden; transition:transform 1s ease-in-out; }
+.capa-envelope.aberto .envelope-aba { transform:rotateX(180deg); }
+.monograma-envelope { position:absolute; top:12px; left:50%; transform:translateX(-50%); width:100%; display:flex; justify-content:center; align-items:center; gap:5px; color:var(--dourado); }
+.letras-envelope { font-family:'Parisienne',cursive; font-size:32px; color:var(--dourado); white-space:nowrap; }
+.folha-monograma { display:block; width:32px; height:50px; flex-shrink:0; color:var(--dourado); }
+.folha-monograma.esquerda { transform:rotate(-15deg); }
+.folha-monograma.direita { transform:scaleX(-1) rotate(-15deg); }
+.lacre { position:absolute; top:55%; left:50%; transform:translate(-50%,-50%); width:95px; height:95px; padding:0; border:0; border-radius:50%; background:transparent; cursor:pointer; z-index:5; transition:opacity .3s ease; }
+.lacre img { display:block; width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain; filter:drop-shadow(0 4px 5px #704b2b55); }
+.lacre:hover { scale:1.05; }
+.capa-envelope.aberto .lacre { opacity:0; pointer-events:none; }
+.mensagem-envelope { margin-top:35px; font-size:23px; letter-spacing:1px; text-align:center; color:#8b642b; }
+.cartinha-envelope { position:absolute; left:8%; bottom:12%; width:84%; height:80%; z-index:1; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; padding:12px; text-align:center; background:#fff9f0; border:1px solid #c69a58; box-shadow:0 4px 12px #8b683b20; transform:translateY(0); opacity:0; visibility:hidden; transition:transform 2.8s cubic-bezier(.22,1,.36,1),opacity .6s ease; }
+.cartinha-titulo { font-size:14px; letter-spacing:3px; color:#8b642b; }
+.cartinha-nomes { font-family:'Parisienne',cursive; font-size:32px; color:var(--dourado); }
+.cartinha-data { font-size:15px; color:#8b642b; }
+.capa-envelope.cartinha-subindo .cartinha-envelope { visibility:visible; opacity:1; transform:translateY(-155px); }
+
+/* CONVITE PRINCIPAL */
+.convite { position:relative; isolation:isolate; width:100%; max-width:650px; min-height:850px; margin:0 auto; padding:100px 55px; text-align:center; }
+.moldura-svg { position:absolute; inset:15px 5%; width:90%; height:calc(100% - 30px); fill:none; stroke:var(--dourado); stroke-width:1.2; pointer-events:none; z-index:-1; }
+.folhagem { position:absolute; width:180px; height:180px; background-image:url('img/folhagens.png'); background-repeat:no-repeat; background-size:360px 240px; opacity:.85; pointer-events:none; z-index:-1; }
+.folhagem-topo { top:20px; left:45px; background-position:left top; }
+.folhagem-baixo { bottom:35px; right:35px; background-position:right bottom; }
+.iniciais { font-family:'Parisienne',cursive; font-size:85px; color:var(--dourado); }
+.coracao { display:block; font-size:35px; color:var(--dourado); margin:10px 0; }
+.subtitulo { font-size:22px; letter-spacing:6px; font-weight:600; }
+.apresentacao { margin-top:45px; }
+.apresentacao h1 { font-family:'Parisienne',cursive; font-size:clamp(48px,10vw,75px); font-weight:400; color:var(--dourado); margin-bottom:35px; }
+.apresentacao p { font-size:clamp(21px,4vw,27px); line-height:1.5; max-width:450px; padding:0 10px; margin:0 auto; }
+.detalhes { position:relative; margin-top:55px; padding:0 10px 65px; text-align:center; }
+.data-hora { display:flex; justify-content:center; align-items:center; gap:35px; margin-bottom:35px; }
+.informacao { flex:1; max-width:150px; }
+.informacao + .informacao { border-left:1px solid var(--dourado); padding-left:25px; }
+.icone { display:block; color:var(--dourado); font-size:25px; margin-bottom:8px; }
+.informacao h2 { color:var(--dourado); font-size:29px; font-weight:500; }
+.informacao p { font-size:13px; letter-spacing:2px; }
+.local h2 { color:var(--dourado); font-size:30px; font-weight:500; margin-bottom:10px; }
+.local p { font-size:19px; line-height:1.5; margin-bottom:25px; }
+.botao-waze { position:relative; z-index:2; display:inline-block; padding:12px 25px; background:var(--dourado); color:white; text-decoration:none; border-radius:30px; font-size:17px; transition:background .3s,transform .3s; }
+.botao-waze:hover { background:var(--marrom); transform:translateY(-3px); }
+@media(max-width:480px) {
+  .iniciais { font-size:70px; }
+  .subtitulo { font-size:17px; letter-spacing:4px; }
+  .apresentacao h1 { font-size:52px; }
+  .convite { padding:100px 35px; }
+  .folhagem { width:125px; height:125px; background-size:250px 167px; }
+  .folhagem-topo { top:15px; left:10px; }
+  .folhagem-baixo { bottom:15px; right:10px; }
+  .detalhes { margin-top:40px; }
+  .data-hora { gap:15px; }
+  .informacao + .informacao { padding-left:15px; }
+  .local p { font-size:17px; }
+}
+
+/* PASSO 75 — PAPEL CHAMPANHE ACETINADO */
+
+.envelope-corpo {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(
+      135deg,
+      #fff9ef 0%,
+      #f3e2c8 45%,
+      #e8cda5 100%
+    );
+
+  box-shadow:
+    inset 0 0 22px rgba(255, 255, 255, 0.55),
+    0 12px 25px rgba(120, 85, 40, 0.12);
+}
+
+.envelope-aba {
+  background: linear-gradient(
+    155deg,
+    #fffaf1 0%,
+    #f5e6cf 55%,
+    #e9d2ae 100%
+  );
+}
+/* PASSO 77 — LINHAS DOURADAS NAS DOBRAS */
+
+.envelope-corpo::before {
+  border-left: 1px solid rgba(184, 134, 56, 0.65);
+}
+
+.envelope-corpo::after {
+  border-right: 1px solid rgba(184, 134, 56, 0.65);
+}
+
+.envelope-aba {
+  filter: drop-shadow(0 2px 2px rgba(139, 104, 59, 0.15));
+}
+/* PASSO 78 — FOLHAGENS DELICADAS */
+
+.folha-monograma {
+  width: 27px;
+  height: 43px;
+  color: #c49a52;
+  opacity: 0.9;
+  flex-shrink: 0;
+}
+
+.monograma-envelope {
+  gap: 7px;
+}
+
+.folha-monograma.esquerda {
+  transform: rotate(-12deg);
+}
+
+.folha-monograma.direita {
+  transform: scaleX(-1) rotate(-12deg);
+}
+/* PASSO 81 — CONVITE MAIS DELICADO */
+
+.convite {
+  max-width: 560px;
+  min-height: 760px;
+  padding: 80px 45px;
+}
+
+.iniciais {
+  font-size: 68px;
+}
+
+.apresentacao h1 {
+  font-size: 58px;
+}
+
+.apresentacao p {
+  font-size: 23px;
+}
+
+.subtitulo {
+  font-size: 18px;
+  letter-spacing: 5px;
+}
+
+.detalhes {
+  margin-top: 40px;
+}
+/* PASSO 82 — AJUSTE FINO DO CONVITE */
+
+.convite {
+  max-width: 520px;
+  min-height: 710px;
+  padding: 70px 40px;
+}
+
+.iniciais {
+  font-size: 62px;
+}
+
+.apresentacao h1 {
+  font-size: 53px;
+}
+
+.apresentacao p {
+  font-size: 21px;
+}
+
+.subtitulo {
+  font-size: 17px;
+  letter-spacing: 4px;
+}
+
+.detalhes {
+  margin-top: 35px;
+}
+/* PASSO 85 — ORGANIZAR OS BOTÕES */
+
+.local .botao-confirmar {
+  display: block;
+  width: fit-content;
+  margin: 15px auto 0;
+  padding: 12px 25px;
+
+  background-color: transparent;
+  color: #b88638;
+  border: 1px solid #b88638;
+  border-radius: 30px;
+
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+.local .botao-confirmar:hover {
+  background-color: #b88638;
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* PASSO 86 — ENVELOPE CHAMPAGNE ROSADO */
+
+.envelope-corpo {
+  background: linear-gradient(
+    135deg,
+    #f6e9e4 0%,
+    #ead8d1 50%,
+    #d9beb5 100%
+  );
+}
+
+/* Dobras laterais */
+.envelope-corpo::before {
+  background: #e9d5ce;
+}
+
+.envelope-corpo::after {
+  background: #dfc6bd;
+}
+
+/* Aba triangular */
+.envelope-aba {
+  background: linear-gradient(
+    155deg,
+    #faefea 0%,
+    #ead7d0 55%,
+    #ddc3ba 100%
+  );
+}
+
+/* PASSO 86 — ENVELOPE CHAMPAGNE ROSADO */
+
+.envelope-corpo {
+  background: linear-gradient(
+    135deg,
+    #f6e9e4 0%,
+    #ead8d1 50%,
+    #d9beb5 100%
+  );
+}
+
+/* Dobras laterais */
+.envelope-corpo::before {
+  background: #e9d5ce;
+}
+
+.envelope-corpo::after {
+  background: #dfc6bd;
+}
+
+/* Aba triangular */
+.envelope-aba {
+  background: linear-gradient(
+    155deg,
+    #faefea 0%,
+    #ead7d0 55%,
+    #ddc3ba 100%
+  );
+}
+/* PASSO 88 — CORRIGIR A DOBRA INFERIOR */
+
+.capa-envelope .envelope::after {
+  background: #e6cec8 !important;
+}
+
+/* PASSO 89 — FOLHAGENS SUPERIORES */
+
+.folhagem-topo {
+  top: 32px;
+  left: 65px;
+  transform: rotate(8deg);
+}
+/* PASSO 90 — FOLHAGENS SEM COBRIR AS LETRAS */
+
+.folhagem-topo {
+  top: 15px;
+  left: 20px;
+  transform: rotate(8deg);
+}
+
+/* PASSO 92 — NOMES NA MESMA LINHA NO CELULAR */
+
+@media (max-width: 480px) {
+  .apresentacao h1 {
+    font-size: 43px;
+    white-space: nowrap;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
